@@ -92,4 +92,9 @@
 </section>
 <!-- /.content -->
 </div>
+<script type="text/javascript">
+
+  window.onbeforeunload = "Are you sure you want to leave?";
+
+</script>
 @stop
