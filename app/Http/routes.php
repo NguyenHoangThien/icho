@@ -26,5 +26,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend'], function()
     		]
     	]
     	);
- 
+ 	Route::post('/tmp-upload', ['as' => 'image.tmp-upload', 'uses' => 'UploadController@tmpUpload']);
 });

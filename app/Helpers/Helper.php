@@ -9,15 +9,17 @@ class Helper
         return strtoupper($string);
     }
 
-    public static function uploadPhoto($file, $base_folder, $date_dir){
+    public static function uploadPhoto($file, $base_folder = '', $date_dir=false){
+    
+        $return = [];
 
-    	$file = Input::file('file');
+        $basePath = '';
 
-        $destinationPath = config('icho.upload_path'); 
+        $basePath = $base_folder ? $basePath .= $base_folder ."/" : $basePath = $basePath;
 
-        $destinationPath = $base_folder ? $destinationPath .= $base_folder."/";
-
-        $destinationPath = $date_dir == true ? $destinationPath .= date('Y/m/d'). '/';        
+        $basePath = $date_dir == true ? $basePath .= date('Y/m/d'). '/'  : $basePath = $basePath;        
+        
+        $desPath = config('icho.upload_path'). $basePath;
 
         //set name for file
         $fileName = $file->getClientOriginalName();
@@ -35,15 +37,14 @@ class Helper
         $imgName = $imgName."_".time();
 
         $newFileName = "{$imgName}.{$imgExt}";
-
-        $result = $file->move($destinationPath, $newFileName);   
         
-        $imageUrl = date('Y/m/d')."/".$newFileName;
+        if( $file->move($desPath, $newFileName) ){
+            $imagePath = $basePath.$newFileName;
+            $return['image_name'] = $newFileName;
+            $return['image_path'] = $imagePath;
+        }
 
-        $dataArr['image_url'] = $imageUrl;
-        $dataArr['alt_jp'] = $imgNameOrigin;
-        $dataArr['file_name'] = $newFileName;
-        $dataArr['alt_en'] = $imgNameOrigin;
+        return $return;
     }
 
     public static function changeFileName($str) {

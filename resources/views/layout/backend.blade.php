@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>AdminLTE 2 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -20,7 +21,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ URL::asset('backend/plugins/iCheck/flat/blue.css') }}">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="{{ URL::asset('backend/plugins/morris/morris.css') }}">
+  
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{ URL::asset('backend/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
   <!-- Date Picker -->
@@ -249,12 +250,13 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+<input type="hidden" id="upload_url" value="{{ config('icho.upload_url') }}">
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
 <script src="{{ URL::asset('backend/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -262,8 +264,8 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ URL::asset('backend/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js') }}"></script>
-<script src="{{ URL::asset('backend/plugins/morris/morris.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
 <!-- Sparkline -->
 <script src="{{ URL::asset('backend/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap -->
@@ -272,7 +274,7 @@
 <!-- jQuery Knob Chart -->
 <script src="{{ URL::asset('backend/plugins/knob/jquery.knob.js') }}"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{ URL::asset('backend/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ URL::asset('backend/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
@@ -288,5 +290,17 @@
 <script src="{{ URL::asset('backend/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ URL::asset('backend/dist/js/demo.js') }}"></script>
+<script type="text/javascript" type="text/javascript">
+$(document).ready(function(){
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+});
+  
+</script>
+
+@yield('javascript_page')
 </body>
 </html>
