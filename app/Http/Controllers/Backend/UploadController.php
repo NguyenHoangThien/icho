@@ -24,8 +24,9 @@ class UploadController extends Controller
         if ($request->ajax())
         {
         	$dataArr = $request->all();
+            $date_dir = $dataArr['date_dir'] == 1 ? true : false;
             if($dataArr['file']){
-                $rsUpload = Helper::uploadPhoto($dataArr['file'], 'tmp', true);                
+                $rsUpload = Helper::uploadPhoto($dataArr['file'], $dataArr['folder'], $date_dir);
             }
         }
         return response()->json($rsUpload);

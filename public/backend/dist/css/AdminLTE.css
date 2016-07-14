@@ -4923,3 +4923,16 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+.red-star{
+  color:red;
+  font-weight: bold;
+}
+#table-list-data td{
+  vertical-align: middle;
+}
+img.move{
+  cursor: move;
+}
+.highlight{
+  background-color: #CCCCCC;  
+}

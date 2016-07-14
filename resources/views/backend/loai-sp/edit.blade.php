@@ -8,8 +8,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="#">Loại sản phẩm</a></li>
-      <li class="active">Tạo mới</li>
+      <li><a href="{{ route('loai-sp') }}">Loại sản phẩm</a></li>
+      <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
 
@@ -23,12 +23,12 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Tạo mới</h3>
+            <h3 class="box-title">Chỉnh sửa</h3>
           </div>
           <!-- /.box-header -->
           <!-- form start -->
 
-          <form role="form" method="POST" action="{{ route('loai-sp.store') }}">
+          <form role="form" method="PUT" action="{{ route('loai-sp.update', [$detail->id]) }}">
             {!! csrf_field() !!}
 
             <div class="box-body">
@@ -44,23 +44,23 @@
               <!-- text input -->
               <div class="form-group">
                 <label>Tên danh mục <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" name="name" id="name" value="{{ $detail->name }}">
               </div>
               <div class="form-group">
                 <label>Slug <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
+                <input type="text" class="form-control" name="slug" id="slug" value="{{ $detail->slug }}">
               </div>
               <!-- textarea -->
               <div class="form-group">
                 <label>Mô tả</label>
-                <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
+                <textarea class="form-control" rows="4" name="description" id="description">{{ $detail->description }}</textarea>
               </div>            
 
               
               <div class="form-group">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
+                    <input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}>
                     Danh mục nổi bật
                   </label>
                 </div>               
@@ -68,32 +68,32 @@
               <div class="form-group">
                 <label>Ẩn/hiện</label>
                 <select class="form-control" name="status" id="status">                  
-                  <option value="0" {{ old('status') == 0 ? "selected" : "" }}>Ẩn</option>
-                  <option value="1" {{ old('status') == 1 ? "selected" : "" }}>Hiện</option>
+                  <option value="0" {{ $detail->status == 0 ? "selected" : "" }}>Ẩn</option>
+                  <option value="1" {{ $detail->status == 1 ? "selected" : "" }}>Hiện</option>
                 </select>
               </div>
               <div class="form-group">
                 <label>Style banner</label>
                 <select class="form-control" name="home_style" id="home_style">                  
-                  <option value="1" {{ old('home_style') == 1 ? "selected" : "" }}>Banner đứng lớn</option>
-                  <option value="2" {{ old('home_style') == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
-                  <option value="3" {{ old('home_style') == 3 ? "selected" : "" }}>Banner ngang</option>
+                  <option value="1" {{ $detail->home_style == 1 ? "selected" : "" }}>Banner đứng lớn</option>
+                  <option value="2" {{ $detail->home_style == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
+                  <option value="3" {{ $detail->home_style == 3 ? "selected" : "" }}>Banner ngang</option>
                 </select>
               </div>
               <div class="form-group">
                 <label>URL banner</label>
-                <input type="text" class="form-control" name="ads_url" id="ads_url" value="{{ old('ads_url') }}">
+                <input type="text" class="form-control" name="ads_url" id="ads_url" value="{{ $detail->ads_url }}">
               </div>
               <div class="form-group">
                 <label>Màu nền</label>
-                <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ old('bg_color') }}">
+                <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ $detail->bg_color }}">
               </div>
             </div>
             <!-- /.box-body -->
-            <input type="hidden" name="image_url" id="image_url" value="{{ old('image_url') }}"/>
-            <input type="hidden" name="icon_url" id="icon_url" value="{{ old('icon_url') }}"/>
-            <input type="hidden" name="image_name" id="image_name" value="{{ old('image_name') }}"/>
-            <input type="hidden" name="icon_name" id="icon_name" value="{{ old('icon_name') }}"/>
+            <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>
+            <input type="hidden" name="icon_url" id="icon_url" value="{{ $detail->icon_url }}"/>
+            <input type="hidden" name="image_name" id="image_name" value="{{ $detail->image_name }}"/>
+            <input type="hidden" name="icon_name" id="icon_name" value="{{ $detail->icon_name }}"/>
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
@@ -116,7 +116,7 @@
               <div class="form-group" style="margin-top:10px">  
                 <label class="col-md-3">Icon </label>    
                 <div class="col-md-9">
-                  <img id="thumbnail_icon" src="{{ old('icon_url') ? config('icho.upload_url').old('icon_url') : 'http://placehold.it/60x60' }}" class="img-thumbnail" width="60" height="60">
+                  <img id="thumbnail_icon" src="{{ $detail->icon_url ? config('icho.upload_url').$detail->icon_url : 'http://placehold.it/60x60' }}" class="img-thumbnail" width="60" height="60">
                   
                   <input type="file" id="file-icon" style="display:none" />
                
@@ -127,7 +127,7 @@
               <div class="form-group">  
                 <label class="col-md-3">Banner </label>    
                 <div class="col-md-9">
-                  <img id="thumbnail_image" src="{{ old('image_url') ? config('icho.upload_url').old('image_url') : 'http://placehold.it/150x150' }}" class="img-thumbnail" width="150" height="150">
+                  <img id="thumbnail_image" src="{{ $detail->image_url ? config('icho.upload_url').$detail->image_url : 'http://placehold.it/150x150' }}" class="img-thumbnail" width="150" height="150">
                   
                   <input type="file" id="file-image" style="display:none" />
                 </div>                

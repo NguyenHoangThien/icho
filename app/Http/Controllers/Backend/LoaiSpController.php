@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Backend\LoaiSp;
+use Helper, File, Session;
 
 class LoaiSpController extends Controller
 {
@@ -16,7 +18,8 @@ class LoaiSpController extends Controller
     */
     public function index(Request $request)
     {
-        return view('backend.loai-sp.index');
+        $items = LoaiSp::all();
+        return view('backend.loai-sp.index', compact( 'items' ));
     }
 
     /**
@@ -37,7 +40,34 @@ class LoaiSpController extends Controller
     */
     public function store(Request $request)
     {
-    //
+        $dataArr = $request->all();
+        
+        $this->validate($request,[
+            'name' => 'required',
+            'slug' => 'required',
+        ],
+        [
+            'name.required' => 'Bạn chưa nhập tên danh mục',
+            'slug.required' => 'Bạn chưa nhập slug',
+        ]);
+
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
+        
+        if($dataArr['image_url'] && $dataArr['image_name']){
+            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$dataArr['image_name']);
+            $dataArr['image_url'] = $dataArr['image_name'];
+        }
+            
+        if($dataArr['icon_url'] && $dataArr['icon_name']){
+            File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
+            $dataArr['icon_url'] = $dataArr['icon_name'];
+        }
+
+        LoaiSp::create($dataArr);
+
+        Session::flash('message', 'Tạo mới danh mục thành công');
+
+        return redirect()->route('loai-sp');
     }
 
     /**
@@ -59,7 +89,9 @@ class LoaiSpController extends Controller
     */
     public function edit($id)
     {
-    //
+        $detail = LoaiSp::find($id);
+
+        return view('backend.loai-sp.edit', compact( 'detail' ));
     }
 
     /**
