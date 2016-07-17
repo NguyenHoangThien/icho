@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/skins/_all-skins.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ URL::asset('backend/plugins/iCheck/flat/blue.css') }}">
+
+  <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/sweetalert2.min.css') }}">  
   <!-- Morris chart -->
   
   <!-- jvectormap -->
@@ -248,6 +250,8 @@
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
+<input type="hidden" id="route_update_order" value="{{ route('update-order') }}">
+<input type="hidden" id="route_get_slug" value="{{ route('get-slug') }}">
   <div class="control-sidebar-bg"></div>
 </div>
 <input type="hidden" id="upload_url" value="{{ config('icho.upload_url') }}">
@@ -256,13 +260,18 @@
 <!-- jQuery 2.2.3 -->
 <script src="{{ URL::asset('backend/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="{{ URL::asset('backend/dist/js/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ URL::asset('backend/bootstrap/js/bootstrap.min.js') }}"></script>
+
+<script src="{{ URL::asset('backend/dist/js/sweetalert2.min.js') }}"></script>
+<script src="{{ URL::asset('backend/dist/js/es6-promise.min.js') }}"></script>
+<script src="{{ URL::asset('backend/dist/js/finally.js') }}"></script>
+
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 

@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\LoaiSp;
+use App\Models\Backend\Cate;
 use Helper, File, Session;
 
-class LoaiSpController extends Controller
+class CateController extends Controller
 {
     /**
     * Display a listing of the resource.
@@ -18,8 +18,9 @@ class LoaiSpController extends Controller
     */
     public function index(Request $request)
     {
-        $items = LoaiSp::all()->sortBy('display_order');
-        return view('backend.loai-sp.index', compact( 'items' ));
+        $items = Cate::all()->sortBy('display_order');
+       // dd($items->count());die;
+        return view('backend.cate.index', compact( 'items' ));
     }
 
     /**
@@ -29,7 +30,7 @@ class LoaiSpController extends Controller
     */
     public function create()
     {
-        return view('backend.loai-sp.create');
+        return view('backend.cate.create');
     }
 
     /**
@@ -65,11 +66,11 @@ class LoaiSpController extends Controller
             $dataArr['icon_url'] = $dataArr['icon_name'];
         }
 
-        LoaiSp::create($dataArr);
+        Cate::create($dataArr);
 
         Session::flash('message', 'Tạo mới danh mục thành công');
 
-        return redirect()->route('loai-sp.index');
+        return redirect()->route('cate.index');
     }
 
     /**
@@ -91,9 +92,9 @@ class LoaiSpController extends Controller
     */
     public function edit($id)
     {
-        $detail = LoaiSp::find($id);
+        $detail = Cate::find($id);
 
-        return view('backend.loai-sp.edit', compact( 'detail' ));
+        return view('backend.cate.edit', compact( 'detail' ));
     }
 
     /**
@@ -129,12 +130,12 @@ class LoaiSpController extends Controller
             File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
             $dataArr['icon_url'] = $dataArr['icon_name'];
         }
-        $model = LoaiSp::find($dataArr['id']);
+        $model = Cate::find($dataArr['id']);
         $model->update($dataArr);
 
         Session::flash('message', 'Cập nhật danh mục thành công');
 
-        return redirect()->route('loai-sp.index');
+        return redirect()->route('cate.index');
     }
 
     /**
@@ -146,11 +147,11 @@ class LoaiSpController extends Controller
     public function destroy($id)
     {
         // delete
-        $model = LoaiSp::find($id);
+        $model = Cate::find($id);
         $model->delete();
 
         // redirect
         Session::flash('message', 'Xóa danh mục thành công');
-        return redirect()->route('loai-sp.index');
+        return redirect()->route('cate.index');
     }
 }

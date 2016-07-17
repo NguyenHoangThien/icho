@@ -32,9 +32,9 @@ class Helper
         // Get image name exclude extension
         $imgNameOrigin = preg_replace('/(.*)(_\d+x\d+)/', '$1', implode('.', $tmpArr));        
 
-        $imgName = self::changeFileName($imgNameOrigin);
+        $imgName = str_slug($imgNameOrigin, '-');
         
-        $imgName = $imgName."_".time();
+        $imgName = $imgName."-".time();
 
         $newFileName = "{$imgName}.{$imgExt}";
         

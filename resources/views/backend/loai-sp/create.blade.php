@@ -4,31 +4,29 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Loại sản phẩm      
+      Danh mục cha      
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="#">Loại sản phẩm</a></li>
+      <li><a href="{{ route('loai-sp.index') }}">Danh mục cha</a></li>
       <li class="active">Tạo mới</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('loai-sp') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default" href="{{ route('loai-sp.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <form role="form" method="POST" action="{{ route('loai-sp.store') }}">
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-8">
+      <div class="col-md-7">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Tạo mới</h3>
           </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-
-          <form role="form" method="POST" action="{{ route('loai-sp.store') }}">
+          <!-- /.box-header -->               
             {!! csrf_field() !!}
 
             <div class="box-body">
@@ -41,53 +39,51 @@
                       </ul>
                   </div>
               @endif
-              <!-- text input -->
-              <div class="form-group">
-                <label>Tên danh mục <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
-              </div>
-              <div class="form-group">
-                <label>Slug <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
-              </div>
-              <!-- textarea -->
-              <div class="form-group">
-                <label>Mô tả</label>
-                <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
-              </div>            
-
               
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
-                    Danh mục nổi bật
-                  </label>
-                </div>               
-              </div>
-              <div class="form-group">
-                <label>Ẩn/hiện</label>
-                <select class="form-control" name="status" id="status">                  
-                  <option value="0" {{ old('status') == 0 ? "selected" : "" }}>Ẩn</option>
-                  <option value="1" {{ old('status') == 1 ? "selected" : "" }}>Hiện</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Style banner</label>
-                <select class="form-control" name="home_style" id="home_style">                  
-                  <option value="1" {{ old('home_style') == 1 ? "selected" : "" }}>Banner đứng lớn</option>
-                  <option value="2" {{ old('home_style') == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
-                  <option value="3" {{ old('home_style') == 3 ? "selected" : "" }}>Banner ngang</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>URL banner</label>
-                <input type="text" class="form-control" name="ads_url" id="ads_url" value="{{ old('ads_url') }}">
-              </div>
-              <div class="form-group">
-                <label>Màu nền</label>
-                <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ old('bg_color') }}">
-              </div>
+                 <!-- text input -->
+                <div class="form-group">
+                  <label>Tên danh mục <span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                </div>
+                <div class="form-group">
+                  <label>Slug <span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
+                </div>
+                <!-- textarea -->
+                <div class="form-group">
+                  <label>Mô tả</label>
+                  <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
+                </div>            
+
+                
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
+                      Danh mục nổi bật
+                    </label>
+                  </div>               
+                </div>
+                <div class="form-group">
+                  <label>Ẩn/hiện</label>
+                  <select class="form-control" name="status" id="status">                  
+                    <option value="0" {{ old('status') == 0 ? "selected" : "" }}>Ẩn</option>
+                    <option value="1" {{ old('status') == 1 || old('status') == NULL ? "selected" : "" }}>Hiện</option>                  
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Style banner</label>
+                  <select class="form-control" name="home_style" id="home_style">                  
+                    <option value="0" {{ old('home_style') == 0 ? "selected" : "" }}>Không banner</option>
+                    <option value="1" {{ old('home_style') == 1 ? "selected" : "" }}>Banner đứng lớn</option>
+                    <option value="2" {{ old('home_style') == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
+                    <option value="3" {{ old('home_style') == 3 ? "selected" : "" }}>Banner ngang</option>
+                  </select>
+                </div>                    
+                <div class="form-group">
+                  <label>Màu nền</label>
+                  <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ old('bg_color') }}">
+                </div>
             </div>
             <!-- /.box-body -->
             <input type="hidden" name="image_url" id="image_url" value="{{ old('image_url') }}"/>
@@ -96,45 +92,38 @@
             <input type="hidden" name="icon_name" id="icon_name" value="{{ old('icon_name') }}"/>
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-sp.index')}}">Hủy</a>
             </div>
-            </form>
+            
         </div>
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Hình ảnh</h3>
+            <h3 class="box-title">Thông tin SEO</h3>
           </div>
           <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form">
             <div class="box-body">
-              <!-- text input -->
-              <div class="form-group" style="margin-top:10px">  
-                <label class="col-md-3">Icon </label>    
-                <div class="col-md-9">
-                  <img id="thumbnail_icon" src="{{ old('icon_url') ? config('icho.upload_url').old('icon_url') : 'http://placehold.it/60x60' }}" class="img-thumbnail" width="60" height="60">
-                  
-                  <input type="file" id="file-icon" style="display:none" />
-               
-                  <button class="btn btn-default" id="btnUploadIcon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                </div>
+              <div class="form-group">
+                <label>Meta title </label>
+                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
               </div>
-              <div style="clear:both;margin-bottom:10px"></div>
-              <div class="form-group">  
-                <label class="col-md-3">Banner </label>    
-                <div class="col-md-9">
-                  <img id="thumbnail_image" src="{{ old('image_url') ? config('icho.upload_url').old('image_url') : 'http://placehold.it/150x150' }}" class="img-thumbnail" width="150" height="150">
-                  
-                  <input type="file" id="file-image" style="display:none" />
-                </div>                
-                <div class="col-md-3"></div>
-                <div class="col-md-9" style="padding-top:5px">
-                  <button class="btn btn-default" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                </div>
+              <!-- textarea -->
+              <div class="form-group">
+                <label>Meta desciption</label>
+                <textarea class="form-control" rows="4" name="meta_description" id="meta_description">{{ old('meta_description') }}</textarea>
+              </div>  
+
+              <div class="form-group">
+                <label>Meta keywords</label>
+                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ old('meta_keywords') }}</textarea>
+              </div>  
+              <div class="form-group">
+                <label>Custom text</label>
+                <textarea class="form-control" rows="4" name="custom_text" id="custom_text">{{ old('custom_text') }}</textarea>
               </div>
             
         </div>
@@ -143,6 +132,7 @@
       </div>
       <!--/.col (left) -->      
     </div>
+    </form>
     <!-- /.row -->
   </section>
   <!-- /.content -->
@@ -238,6 +228,34 @@
           });
         }
       });
+      
+      $('#name').change(function(){
+         var name = $.trim( $(this).val() );
+         if( name != '' && $('#slug').val() == ''){
+            $.ajax({
+              url: $('#route_get_slug').val(),
+              type: "POST",
+              async: false,      
+              data: {
+                str : name
+              },              
+              success: function (response) {
+                if( response.str ){                  
+                  $('#slug').val( response.str );
+                }                
+              },
+              error: function(response){                             
+                  var errors = response.responseJSON;
+                  for (var key in errors) {
+                    
+                  }
+                  //$('#btnLoading').hide();
+                  //$('#btnSave').show();
+              }
+            });
+         }
+      });
+
     });
     
 </script>

@@ -3,14 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 
 
-class LoaiSp extends Model  {
+class Cate extends Model  {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'loai_sp';	
+	protected $table = 'san_pham';	
 
 	 /**
      * Indicates if the model should be timestamped.
@@ -23,10 +23,6 @@ class LoaiSp extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'alias', 'bg_color', 'is_hot', 'status', 'icon_url', 'display_order', 'description', 'home_style'];
-
-    public function cates()
-    {
-        return $this->hasMany('App\Models\Backend\Cate', 'loai_id');
-    }
+    protected $fillable = ['name', 'slug', 'alias', 'bg_color', 'is_hot', 'status', 'icon_url', 'image_url', 'display_order', 'description', 'home_style', 'ads_url'];
+    
 }
