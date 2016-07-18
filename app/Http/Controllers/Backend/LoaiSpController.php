@@ -54,7 +54,7 @@ class LoaiSpController extends Controller
         $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-        
+        /*
         if($dataArr['image_url'] && $dataArr['image_name']){
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$dataArr['image_name']);
             $dataArr['image_url'] = $dataArr['image_name'];
@@ -64,7 +64,7 @@ class LoaiSpController extends Controller
             File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
             $dataArr['icon_url'] = $dataArr['icon_name'];
         }
-
+        */
         LoaiSp::create($dataArr);
 
         Session::flash('message', 'Tạo mới danh mục thành công');
@@ -119,7 +119,7 @@ class LoaiSpController extends Controller
         $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
 
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-        
+        /*
         if($dataArr['image_url'] && $dataArr['image_name'] && $dataArr['image_url'] != $dataArr['old_image_url']){
             File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$dataArr['image_name']);
             $dataArr['image_url'] = $dataArr['image_name'];
@@ -129,6 +129,7 @@ class LoaiSpController extends Controller
             File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
             $dataArr['icon_url'] = $dataArr['icon_name'];
         }
+        */
         $model = LoaiSp::find($dataArr['id']);
         $model->update($dataArr);
 

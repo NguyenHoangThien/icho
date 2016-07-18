@@ -59,7 +59,7 @@
 
                   <p>{{ $item->description }}</p>
                 </td>
-                <td style="text-align:center"><a class="btn btn-info" href="">{{ $item->cates->count() }}</a></td>
+                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->cates->count() }}</a></td>
                 <td style="text-align:center">
                   <img class="img-thumbnail" src="{{ $item->icon_url ? config( 'icho.upload_url' ).$item->icon_url  : 'http://placehold.it/60x60' }}" width="40" />
                 </td>               

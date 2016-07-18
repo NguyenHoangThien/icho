@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Danh mục cha 
+    Danh mục con của : <span class="cate-name">{{ $loaiSp->name }}</span>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -20,7 +20,25 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('cate.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('cate.create', [$loai_id]) }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Bộ lọc</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-inline" role="form" method="GET" action="{{ route('cate.index') }}">
+            <div class="form-group">
+              <label for="email">Danh mục :</label>
+              <select class="form-control" name="loai_id">
+                @foreach( $loaiSpArr as $value )
+                <option value="{{ $value->id }}" {{ $value->id == $loai_id ? "selected" : "" }}>{{ $value->name }}</option>
+                @endforeach
+              </select>
+            </div>            
+            <button type="submit" class="btn btn-default">Lọc</button>
+          </form>         
+        </div>
+      </div>
       <div class="box">
 
         <div class="box-header with-border">

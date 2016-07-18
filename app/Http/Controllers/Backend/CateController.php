@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Cate;
+use App\Models\Backend\LoaiSp;
 use Helper, File, Session;
 
 class CateController extends Controller
@@ -18,9 +19,12 @@ class CateController extends Controller
     */
     public function index(Request $request)
     {
-        $items = Cate::all()->sortBy('display_order');
-       // dd($items->count());die;
-        return view('backend.cate.index', compact( 'items' ));
+
+        $loaiSp = LoaiSp::orderBy('display_order')->first();
+        $loai_id = isset($request->loai_id) ? $request->loai_id : $loaiSp->id;        
+        $items = Cate::where('loai_id', $loai_id)->orderBy('display_order')->get();
+        $loaiSpArr = LoaiSp::all();
+        return view('backend.cate.index', compact( 'items', 'loaiSp' , 'loai_id', 'loaiSpArr'));
     }
 
     /**
@@ -28,9 +32,13 @@ class CateController extends Controller
     *
     * @return Response
     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('backend.cate.create');
+        $loai_id = isset($request->loai_id) ? $request->loai_id : 0;
+        
+        $loaiSpArr = LoaiSp::all()->sortBy('display_order');
+
+        return view('backend.cate.create', compact( 'loai_id', 'loaiSpArr'));
     }
 
     /**
@@ -56,21 +64,11 @@ class CateController extends Controller
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
         
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$dataArr['image_name']);
-            $dataArr['image_url'] = $dataArr['image_name'];
-        }
-            
-        if($dataArr['icon_url'] && $dataArr['icon_name']){
-            File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
-            $dataArr['icon_url'] = $dataArr['icon_name'];
-        }
-
         Cate::create($dataArr);
 
         Session::flash('message', 'Tạo mới danh mục thành công');
 
-        return redirect()->route('cate.index');
+        return redirect()->route('cate.index',[$dataArr['loai_id']]);
     }
 
     /**
@@ -93,8 +91,8 @@ class CateController extends Controller
     public function edit($id)
     {
         $detail = Cate::find($id);
-
-        return view('backend.cate.edit', compact( 'detail' ));
+        $loaiSpArr = LoaiSp::all();
+        return view('backend.cate.edit', compact( 'detail', 'loaiSpArr' ));
     }
 
     /**
@@ -120,22 +118,13 @@ class CateController extends Controller
         $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
 
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-        
-        if($dataArr['image_url'] && $dataArr['image_name'] && $dataArr['image_url'] != $dataArr['old_image_url']){
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$dataArr['image_name']);
-            $dataArr['image_url'] = $dataArr['image_name'];
-        }
-            
-        if($dataArr['icon_url'] && $dataArr['icon_name']  && $dataArr['icon_url'] != $dataArr['old_icon_url']){
-            File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$dataArr['icon_name']);
-            $dataArr['icon_url'] = $dataArr['icon_name'];
-        }
+
         $model = Cate::find($dataArr['id']);
         $model->update($dataArr);
 
         Session::flash('message', 'Cập nhật danh mục thành công');
 
-        return redirect()->route('cate.index');
+        return redirect()->route('cate.index', [$dataArr['loai_id']]);
     }
 
     /**

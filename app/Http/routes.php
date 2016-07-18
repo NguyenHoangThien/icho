@@ -28,7 +28,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend'], function()
     });   
     Route::group(['prefix' => 'cate'], function () {
         Route::get('/{loai_id?}', ['as' => 'cate.index', 'uses' => 'CateController@index']);
-        Route::get('/create', ['as' => 'cate.create', 'uses' => 'CateController@create']);
+        Route::get('/create/{loai_id?}', ['as' => 'cate.create', 'uses' => 'CateController@create']);
         Route::post('/store', ['as' => 'cate.store', 'uses' => 'CateController@store']);
         Route::get('{id}/edit',   ['as' => 'cate.edit', 'uses' => 'CateController@edit']);
         Route::post('/update', ['as' => 'cate.update', 'uses' => 'CateController@update']);
@@ -36,11 +36,11 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend'], function()
     }); 
     Route::group(['prefix' => 'banner'], function () {
         Route::get('/{object_type}/{object_id}', ['as' => 'banner.index', 'uses' => 'BannerController@index']);
-        Route::get('/create', ['as' => 'cate.create', 'uses' => 'CateController@create']);
-        Route::post('/store', ['as' => 'cate.store', 'uses' => 'CateController@store']);
-        Route::get('{id}/edit',   ['as' => 'cate.edit', 'uses' => 'CateController@edit']);
-        Route::post('/update', ['as' => 'cate.update', 'uses' => 'CateController@update']);
-        Route::get('{id}/destroy', ['as' => 'cate.destroy', 'uses' => 'CateController@destroy']);
+        Route::get('/create/', ['as' => 'banner.create', 'uses' => 'CateController@create']);
+        Route::post('/store', ['as' => 'banner.store', 'uses' => 'CateController@store']);
+        Route::get('{id}/edit',   ['as' => 'banner.edit', 'uses' => 'CateController@edit']);
+        Route::post('/update', ['as' => 'banner.update', 'uses' => 'CateController@update']);
+        Route::get('{id}/destroy', ['as' => 'banner.destroy', 'uses' => 'CateController@destroy']);
     }); 
  	Route::post('/tmp-upload', ['as' => 'image.tmp-upload', 'uses' => 'UploadController@tmpUpload']);
     Route::post('/update-order', ['as' => 'update-order', 'uses' => 'GeneralController@updateOrder']);

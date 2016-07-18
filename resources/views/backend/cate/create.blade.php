@@ -8,15 +8,15 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('loai-sp.index') }}">Danh mục cha</a></li>
+      <li><a href="{{ route('cate.index') }}">Danh mục con</a></li>
       <li class="active">Tạo mới</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('loai-sp.index') }}" style="margin-bottom:5px">Quay lại</a>
-    <form role="form" method="POST" action="{{ route('loai-sp.store') }}">
+    <a class="btn btn-default" href="{{ route('cate.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <form role="form" method="POST" action="{{ route('cate.store') }}">
     <div class="row">
       <!-- left column -->
 
@@ -39,7 +39,15 @@
                       </ul>
                   </div>
               @endif
-              
+                <div class="form-group">
+                  <label>Danh mục cha</label>
+                  <select class="form-control" name="loai_id" id="loai_id">                  
+                    <option value="0" {{ old('loai_id') == 0 ? "selected" : "" }}>--chọn--</option>
+                    @foreach( $loaiSpArr as $value )
+                    <option value="{{ $value->id }}" {{ ( old('loai_id') == $value->id || $loai_id == $value->id ) ? "selected" : "" }}>{{ $value->name }}</option>
+                    @endforeach
+                  </select>
+                </div> 
                  <!-- text input -->
                 <div class="form-group">
                   <label>Tên danh mục <span class="red-star">*</span></label>
@@ -84,15 +92,11 @@
                   <label>Màu nền</label>
                   <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ old('bg_color') }}">
                 </div>
-            </div>
-            <!-- /.box-body -->
-            <input type="hidden" name="image_url" id="image_url" value="{{ old('image_url') }}"/>
-            <input type="hidden" name="icon_url" id="icon_url" value="{{ old('icon_url') }}"/>
-            <input type="hidden" name="image_name" id="image_name" value="{{ old('image_name') }}"/>
-            <input type="hidden" name="icon_name" id="icon_name" value="{{ old('icon_name') }}"/>
+            </div>          
+        
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-sp.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('cate.index')}}">Hủy</a>
             </div>
             
         </div>

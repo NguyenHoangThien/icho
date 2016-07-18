@@ -4951,3 +4951,9 @@ img.move{
 #tab-form{
   border-bottom: 1px solid #3c8dbc;
 }
+.cate-name{
+  color: #3c8dbc
+}
+.panel {
+  margin-bottom: 5px !important;
+}

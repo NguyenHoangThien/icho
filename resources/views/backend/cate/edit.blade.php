@@ -4,18 +4,18 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Danh mục cha     
+      Danh mục con     
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('loai-sp.index') }}">Danh mục cha</a></li>
+      <li><a href="{{ route('cate.index') }}">Danh mục con</a></li>
       <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('loai-sp.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default" href="{{ route('cate.index') }}" style="margin-bottom:5px">Quay lại</a>
     <div class="row">
       <!-- left column -->
 
@@ -27,7 +27,7 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <form role="form" method="POST" action="{{ route('loai-sp.update') }}">
+          <form role="form" method="POST" action="{{ route('cate.update') }}">
             {!! csrf_field() !!}
             <input type="hidden" name="id" value="{{ $detail->id }}">
             <div class="box-body">
@@ -40,7 +40,15 @@
                       </ul>
                   </div>
               @endif
-              
+               <div class="form-group">
+                  <label>Danh mục cha</label>
+                  <select class="form-control" name="loai_id" id="loai_id">                  
+                    <option value="0" {{ $detail->loai_id == 0 ? "selected" : "" }}>--chọn--</option>
+                    @foreach( $loaiSpArr as $value )
+                    <option value="{{ $value->id }}" {{ ( $detail->loai_id == $value->id ) ? "selected" : "" }}>{{ $value->name }}</option>
+                    @endforeach
+                  </select>
+                </div> 
                <!-- text input -->
               <div class="form-group">
                 <label>Tên danh mục <span class="red-star">*</span></label>
@@ -80,29 +88,16 @@
                   <option value="2" {{ $detail->home_style == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
                   <option value="3" {{ $detail->home_style == 3 ? "selected" : "" }}>Banner ngang</option>
                 </select>
-              </div>   
-              <div class="form-group" style="margin-top:10px">  
-                <label class="col-md-3 row">Icon </label>    
-                <div class="col-md-9">
-                  <img id="thumbnail_icon" src="{{ $detail->icon_url ? config('icho.upload_url').$detail->icon_url : 'http://placehold.it/60x60' }}" class="img-thumbnail" width="60" height="60">
-                  
-                  <input type="file" id="file-icon" style="display:none" />
-               
-                  <button class="btn btn-default" id="btnUploadIcon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                </div>
-              </div>              
+              </div>                       
               <div class="form-group">
                 <label>Màu nền</label>
                 <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ $detail->bg_color }}">
               </div>
             </div>         
-            <!-- /.box-body -->           
-            <input type="hidden" name="icon_url" id="icon_url" value="{{ $detail->icon_url }}"/>
-            <input type="hidden" name="old_icon_url" value="{{ $detail->icon_url }}"/>
-            <input type="hidden" name="icon_name" id="icon_name" value="{{ $detail->icon_name }}"/>
+            <!-- /.box-body -->
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('loai-sp.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('cate.index')}}">Hủy</a>
             </div>
             
         </div>
@@ -165,95 +160,5 @@
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
 @stop
 @section('javascript_page')
-<script type="text/javascript">
-    $(document).ready(function(){
-      $('#btnUploadImage').click(function(){        
-        $('#file-image').click();
-      });
-      $('#btnUploadIcon').click(function(){        
-        $('#file-icon').click();
-      });
-      var files = "";
-      $('#file-image').change(function(e){
-         files = e.target.files;
-         
-         if(files != ''){
-           var dataForm = new FormData();        
-          $.each(files, function(key, value) {
-             dataForm.append('file', value);
-          });   
-          
-          dataForm.append('date_dir', 0);
-          dataForm.append('folder', 'tmp');
 
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_image').attr('src',$('#upload_url').val() + response.image_path);
-                $( '#image_url' ).val( response.image_path );
-                $( '#image_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
-      var filesIcon = '';
-      $('#file-icon').change(function(e){
-         filesIcon = e.target.files;
-         
-         if(filesIcon != ''){
-           var dataForm = new FormData();        
-          $.each(filesIcon, function(key, value) {
-             dataForm.append('file', value);
-          });
-          
-          dataForm.append('date_dir', 0);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_icon').attr('src',$('#upload_url').val() + response.image_path);
-                $('#icon_url').val( response.image_path );
-                $( '#icon_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
-    });
-    
-</script>
 @stop
