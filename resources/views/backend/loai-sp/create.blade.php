@@ -142,7 +142,7 @@
 @section('javascript_page')
 <script type="text/javascript">
     $(document).ready(function(){
-      $('#btnUploadImage').click(function(){        
+      $('#btnUploadImage').click(function(){ 
         $('#file-image').click();
       });
       $('#btnUploadIcon').click(function(){        
