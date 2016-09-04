@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2016 at 01:56 AM
+-- Generation Time: Sep 05, 2016 at 01:49 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -194,6 +194,34 @@ CREATE TABLE `loai_thuoc_tinh` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `loai_thuoc_tinh`
+--
+
+INSERT INTO `loai_thuoc_tinh` (`id`, `name`, `alias`, `display_order`, `loai_id`, `status`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'BỘ XỬ LÝ', 'BO XU LY', 1, 2, 1, 1, 1, '2016-09-04 02:12:22', '2016-09-04 02:17:00'),
+(2, 'BỘ NHỚ', 'BO NHO', 1, 2, 1, 1, 1, '2016-09-04 02:25:02', '2016-09-04 02:25:02'),
+(3, 'ĐĨA CỨNG', 'DIA CUNG', 1, 2, 1, 1, 1, '2016-09-04 02:25:13', '2016-09-04 02:25:13'),
+(4, 'MÀN HÌNH', 'MAN HINH', 1, 2, 1, 1, 1, '2016-09-04 02:26:48', '2016-09-04 02:26:48'),
+(5, 'ĐỒ HỌA', 'DO HOA', 1, 2, 1, 1, 1, '2016-09-04 02:26:56', '2016-09-04 02:26:56'),
+(6, 'ĐĨA QUANG', 'DIA QUANG', 1, 2, 1, 1, 1, '2016-09-04 02:27:02', '2016-09-04 02:27:02'),
+(7, 'TÌNH NĂNG MỞ RỘNG & CỔNG GIAO TIẾP', 'TINH NANG MO RONG & CONG GIAO TIEP', 1, 2, 1, 1, 1, '2016-09-04 02:27:10', '2016-09-04 02:27:10'),
+(8, 'GIAO TIẾP MẠNG', 'GIAO TIEP MANG', 1, 2, 1, 1, 1, '2016-09-04 02:27:18', '2016-09-04 02:27:18'),
+(9, 'CARD READER', 'CARD READER', 1, 2, 1, 1, 1, '2016-09-04 02:27:23', '2016-09-04 02:27:23'),
+(10, 'WEBCAM', 'WEBCAM', 1, 2, 1, 1, 1, '2016-09-04 02:27:30', '2016-09-04 02:27:30'),
+(11, 'PIN/BATTERY', 'PIN-BATTERY', 1, 2, 1, 1, 1, '2016-09-04 02:27:37', '2016-09-04 02:27:37'),
+(12, 'HỆ ĐIỀU HÀNH, PHẦN MỀM SẴN CÓ/OS', 'HE DIEU HANH, PHAN MEM SAN CO-OS', 1, 2, 1, 1, 1, '2016-09-04 02:27:43', '2016-09-04 02:27:43'),
+(13, 'KÍCH THƯỚC & TRỌNG LƯỢNG', 'KICH THUOC & TRONG LUONG', 1, 2, 1, 1, 1, '2016-09-04 02:27:51', '2016-09-04 02:27:51'),
+(14, 'MÀN HÌNH', 'MAN HINH', 1, 8, 1, 1, 1, '2016-09-04 02:29:26', '2016-09-04 02:29:26'),
+(15, 'CAMERA SAU', 'CAMERA SAU', 1, 8, 1, 1, 1, '2016-09-04 02:29:36', '2016-09-04 02:29:36'),
+(16, 'CAMERA TRƯỚC', 'CAMERA TRUOC', 1, 8, 1, 1, 1, '2016-09-04 02:29:41', '2016-09-04 02:29:41'),
+(17, 'HỆ ĐIỀU HÀNH - CPU', 'HE DIEU HANH - CPU', 1, 8, 1, 1, 1, '2016-09-04 02:29:46', '2016-09-04 02:47:17'),
+(18, 'BỘ NHỚ & LƯU TRỮ', 'BO NHO & LUU TRU', 1, 8, 1, 1, 1, '2016-09-04 02:29:52', '2016-09-04 02:29:52'),
+(19, 'KẾT NỐI', 'KET NOI', 1, 8, 1, 1, 1, '2016-09-04 02:29:58', '2016-09-04 02:29:58'),
+(20, 'THIẾT KẾ & TRỌNG LƯỢNG', 'THIET KE & TRONG LUONG', 1, 8, 1, 1, 1, '2016-09-04 02:30:04', '2016-09-04 02:30:04'),
+(21, 'THÔNG TIN PIN', 'THONG TIN PIN', 1, 8, 1, 1, 1, '2016-09-04 02:30:13', '2016-09-04 02:30:13'),
+(22, 'GIẢI TRÍ VÀ ỨNG DỤNG', 'GIAI TRI VA UNG DUNG', 1, 8, 1, 1, 1, '2016-09-04 02:30:21', '2016-09-04 02:30:21');
+
 -- --------------------------------------------------------
 
 --
@@ -287,6 +315,35 @@ CREATE TABLE `thuoc_tinh` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `changed_password` tinyint(1) NOT NULL DEFAULT '0',
+  `remember_token` varchar(255) NOT NULL,
+  `created_user` int(11) NOT NULL,
+  `updated_user` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `status`, `changed_password`, `remember_token`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'admin@icho.vn', '$2y$10$/vF4N2AKvZub7jnhWpTaWeBoejGkbad5DOx9IRfBTvKqWkzgPuTX6', 3, 1, 0, '', 1, 1, '2016-08-27 05:26:18', '2016-08-27 10:21:27'),
+(6, 'Hoang Nguyen', 'hoangnhpublic@gmail.com', '$2y$10$8sMegaFE.07wPr6S74IhUe1a61CdrWjOOLEmFXvx2ATe/gVekhkEq', 1, 2, 0, '', 1, 1, '2016-08-27 05:26:18', '2016-08-27 13:54:32');
+
 --
 -- Indexes for dumped tables
 --
@@ -357,6 +414,12 @@ ALTER TABLE `thuoc_tinh`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -384,7 +447,7 @@ ALTER TABLE `loai_sp`
 -- AUTO_INCREMENT for table `loai_thuoc_tinh`
 --
 ALTER TABLE `loai_thuoc_tinh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `san_pham`
 --
@@ -400,6 +463,11 @@ ALTER TABLE `sp_hinh`
 --
 ALTER TABLE `thuoc_tinh`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
