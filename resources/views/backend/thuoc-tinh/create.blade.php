@@ -41,12 +41,21 @@
               @endif
                 <div class="form-group">
                   <label for="email">Danh mục </label>
-                  <select class="form-control" name="loai_id">
+                  <select class="form-control" name="loai_id" id="loai_id">
                     @foreach( $loaiSp as $value )
                     <option value="{{ $value->id }}" {{ $loai_id == $value->id ? "selected" : "" }}>{{ $value->name }}</option>
                     @endforeach
                   </select>
-                </div>                 
+                </div>
+                <div class="form-group">
+                  <label for="email">Loại thuộc tính</label>
+                  <select class="form-control" name="loai_thuoc_tinh_id" id='loai_thuoc_tinh_id'>
+                    <option value="0">--Chọn--</option>
+                    @foreach( $loaiThuocTinh as $k => $v )
+                    <option value="{{ $k }}" {{ $k == $loai_thuoc_tinh_id ? "selected" : "" }}>{{ $v }}</option>
+                    @endforeach
+                  </select>
+                </div>                      
                 <div class="form-group">
                   <label>Tên <span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
@@ -83,6 +92,9 @@
 @section('javascript_page')
 <script type="text/javascript">
     $(document).ready(function(){
+      $('#loai_id').change(function(){
+        window.location.href="{{ route('thuoc-tinh.create')}}?loai_id=" + $(this).val();
+      });
       $('#btnUploadImage').click(function(){ 
         $('#file-image').click();
       });

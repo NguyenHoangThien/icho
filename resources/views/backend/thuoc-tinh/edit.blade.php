@@ -46,7 +46,16 @@
                     <option value="{{ $value->id }}" {{ $detail->loai_id == $value->id  ? "selected" : "" }}>{{ $value->name }}</option>
                     @endforeach
                   </select>
-                </div>                 
+                </div>       
+                <div class="form-group">
+                  <label for="email">Loại thuộc tính</label>
+                  <select class="form-control" name="loai_thuoc_tinh_id" id='loai_thuoc_tinh_id'>
+                    <option value="0">--Chọn--</option>
+                    @foreach( $loaiThuocTinh as $k => $v )
+                    <option value="{{ $k }}" {{ $detail->loai_thuoc_tinh_id == $k  ? "selected" : "" }}>{{ $v }}</option>
+                    @endforeach
+                  </select>
+                </div>              
                 <div class="form-group">
                   <label>Tên <span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="name" id="name" value="{{ $detail->name }}">

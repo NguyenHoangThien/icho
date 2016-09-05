@@ -26,10 +26,10 @@
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" role="form" method="GET" action="{{ route('loai-thuoc-tinh.index') }}">
+          <form class="form-inline" role="form" method="GET" action="{{ route('loai-thuoc-tinh.index') }}" id="searchForm">
             <div class="form-group">
               <label for="email">Danh mục</label>
-              <select class="form-control" name="loai_id">
+              <select class="form-control" name="loai_id" id="loai_id">
                 <option value="0">--Tất cả--</option>
                 @foreach( $loaiSp as $k => $v )
                 <option value="{{ $k }}" {{ $k == $loai_id ? "selected" : "" }}>{{ $v }}</option>
@@ -114,6 +114,9 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
+  $('#loai_id').change(function(){
+    $('#searchForm').submit();
+  });
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',
         handle: ".move",

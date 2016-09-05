@@ -25,9 +25,18 @@ class ThuocTinhController extends Controller
         $loai_id = $request->loai_id;
         
         $loaiSp = LoaiSp::lists('name', 'id')->toArray();
-
-        
-        
+        /*
+        $ltt = LoaiThuocTinh::where('loai_id', 8)->get();
+        foreach($ltt as $lt){
+            echo $lt->id."-".$lt->name;
+            echo "<br>";
+            $tt = ThuocTinh::where('loai_thuoc_tinh_id', $lt->id)->get();
+            foreach ($tt as $t) {
+                echo $t->id; echo "<br>";
+            }
+        }
+        die;
+        */
         $query = ThuocTinh::whereRaw('1');
 
         if( $loai_id > 0 ){
@@ -55,14 +64,23 @@ class ThuocTinhController extends Controller
     * @return Response
     */
     public function create(Request $request)
-    {   
-        $loaiThuocTinh = LoaiThuocTinh::lists('name', 'id')->toArray();
+    {           
 
         $loai_thuoc_tinh_id = $request->loai_thuoc_tinh_id;
 
         $loai_id = $request->loai_id;
 
         $loaiSp = LoaiSp::all()->sortBy('display_order');
+        $query = ThuocTinh::whereRaw('1');
+        if( $loai_id > 0 ){
+
+            $query->where('loai_id' , $loai_id);
+
+            $loaiThuocTinh = LoaiThuocTinh::where('loai_id', $loai_id)->lists('name', 'id')->toArray();
+
+        }else{
+            $loaiThuocTinh = [];
+        }
 
         return view('backend.thuoc-tinh.create', compact('loaiSp', 'loaiThuocTinh', 'loai_thuoc_tinh_id', 'loai_id'));
     }
@@ -122,8 +140,11 @@ class ThuocTinhController extends Controller
         $loaiSp = LoaiSp::all()->sortBy('display_order');
 
         $detail = ThuocTinh::find($id);
+             
+        $loaiThuocTinh = LoaiThuocTinh::where('loai_id', $detail->loai_id)->lists('name', 'id')->toArray();
 
-        return view('backend.thuoc-tinh.edit', compact( 'detail', 'loaiSp'));
+        
+        return view('backend.thuoc-tinh.edit', compact( 'detail', 'loaiSp', 'loaiThuocTinh'));
     }
 
     /**

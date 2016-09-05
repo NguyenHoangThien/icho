@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Cate;
-use App\Models\Backend\LoaiSp;
-use Helper, File, Session;
+use App\Models\Cate;
+use App\Models\LoaiSp;
+use Helper, File, Session, Auth;
 
 class CateController extends Controller
 {
@@ -20,10 +20,12 @@ class CateController extends Controller
     public function index(Request $request)
     {
 
+
         $loaiSp = LoaiSp::orderBy('display_order')->first();
         $loai_id = isset($request->loai_id) ? $request->loai_id : $loaiSp->id;        
-        $items = Cate::where('loai_id', $loai_id)->orderBy('display_order')->get();
-        $loaiSpArr = LoaiSp::all();
+
+        $items = Cate::where('loai_id', '=', $loai_id)->orderBy('display_order')->get();
+        $loaiSpArr = LoaiSp::all();  
         return view('backend.cate.index', compact( 'items', 'loaiSp' , 'loai_id', 'loaiSpArr'));
     }
 
@@ -64,11 +66,17 @@ class CateController extends Controller
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
         
+        $dataArr['created_user'] = Auth::user()->id;
+
+        $dataArr['updated_user'] = Auth::user()->id;
+
+        $dataArr['display_order'] = 1;
+
         Cate::create($dataArr);
 
         Session::flash('message', 'Tạo mới danh mục thành công');
 
-        return redirect()->route('cate.index',[$dataArr['loai_id']]);
+        return redirect()->route('cate.create',[$dataArr['loai_id']]);
     }
 
     /**
@@ -120,6 +128,9 @@ class CateController extends Controller
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
 
         $model = Cate::find($dataArr['id']);
+
+        $dataArr['updated_user'] = Auth::user()->id;
+
         $model->update($dataArr);
 
         Session::flash('message', 'Cập nhật danh mục thành công');

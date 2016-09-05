@@ -20,13 +20,13 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('thuoc-tinh.create') }}?loai_id={{ $loai_id }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('thuoc-tinh.create') }}?loai_id={{ $loai_id }}&loai_thuoc_tinh_id={{ $loai_thuoc_tinh_id }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" role="form" method="GET" action="{{ route('thuoc-tinh.index') }}">
+          <form class="form-inline" role="form" method="GET" action="{{ route('thuoc-tinh.index') }}" id="searchForm">
             <div class="form-group">
               <label for="email">Danh mục</label>
               <select class="form-control" name="loai_id" id="loai_id">
@@ -124,6 +124,9 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
+  $('#loai_id, #loai_thuoc_tinh_id').change(function(){
+    $('#searchForm').submit();
+  });
   $('#loai_id').change(function(){
     $.ajax({
       url : $('#route-ajax-get-thuoc-tinh-by-id').val(),

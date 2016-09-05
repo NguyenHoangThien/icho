@@ -1,4 +1,4 @@
-<?php namespace App\Models\Backend;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +23,6 @@ class Cate extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'alias', 'loai_id', 'bg_color', 'is_hot', 'status', 'icon_url', 'display_order', 'description', 'home_style', 'meta_title', 'meta_description', 'meta_keywords', 'custom_text'];
+    protected $fillable = ['name', 'slug', 'alias', 'loai_id', 'bg_color', 'is_hot', 'status', 'icon_url', 'display_order', 'description', 'home_style', 'meta_title', 'meta_description', 'meta_keywords', 'custom_text', 'created_user', 'updated_user'];
     
 }

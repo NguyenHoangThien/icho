@@ -33,6 +33,9 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'loai-sp.update', 'uses' => 'LoaiSpController@update']);
         Route::get('{id}/destroy', ['as' => 'loai-sp.destroy', 'uses' => 'LoaiSpController@destroy']);
     });
+    Route::group(['prefix' => 'convert'], function () {
+        Route::get('/', ['as' => 'convert.index', 'uses' => 'ConvertController@index']);        
+    });
     Route::group(['prefix' => 'loai-thuoc-tinh'], function () {
         Route::get('/', ['as' => 'loai-thuoc-tinh.index', 'uses' => 'LoaiThuocTinhController@index']);
         Route::get('/create', ['as' => 'loai-thuoc-tinh.create', 'uses' => 'LoaiThuocTinhController@create']);
