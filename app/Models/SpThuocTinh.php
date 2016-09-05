@@ -25,8 +25,4 @@ class SpThuocTinh extends Model  {
      */
     protected $fillable = ['sp_id', 'thuoctinh_id', 'value'];
 
-    public function thuocTinh()
-    {
-        return $this->hasMany('App\Models\ThuocTinh', 'loai_id');
-    }
 }
