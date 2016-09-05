@@ -17,12 +17,12 @@ class SpThuocTinh extends Model  {
      *
      * @var bool
      */
-    public $timestamps = true;
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['sp_id', 'thuoctinh_id', 'value'];
+    protected $fillable = ['sp_id', 'thuoc_tinh'];
 
 }
